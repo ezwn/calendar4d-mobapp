@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Calendar4d",
+    "slug": "calendar4d",
+    "platforms": ["android", "web"],
+    "version": "0.1.7",
+    "orientation": "portrait",
+    "icon": "./assets/icon-192.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "ezwn.calendar4d",
+      "versionCode": 7
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": ["react-router-native"]
+        }
+      }
+    }
+  }
+}
