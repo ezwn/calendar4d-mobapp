@@ -25,7 +25,7 @@ const Calendar4dApp = () => (
 export const ContextualizedApp = () => (
   <AppProvider features={features}>
     <NativeRouter>
-      <Redirect from="/" to="/physical-activities" />
+      <Redirect from="/" to="/create-entries" />
       <GlobalProvider>
         <Calendar4dApp />
       </GlobalProvider>

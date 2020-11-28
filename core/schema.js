@@ -1,6 +1,6 @@
 const txt = `
 
-# 22/11/2020 14:43:00
+# 27/11/2020 20:20:00
 
 struct Subject
     #id: text(16)
@@ -23,14 +23,27 @@ space<PhysicalActivity>
     "BIKING_15"       	420
     "BIKING_20"       	600
 
+struct AttributeRequirement
+	#id: text(32)
+	meaning: text
+
+finite space<AttributeRequirement>
+    "DISABLED"	"Attribute can't be used"
+    "ENABLED"   "Attribute can be used"
+    "REQUIRED"	"Attribute is required"
+
 struct EntryTypeCategory
     #id: text(32)
     name: text
+	duration: AttributeRequirement
+	position: AttributeRequirement
 
 finite space<EntryTypeCategory>
-    "PHYSICAL_ACTIVITY" 	"Activité physique"
-	"INTELLECTUAL_ACTIVITY"	"Activité intellectuelle"
-    "SYMPTOM"   			"Symptôme"
+    "NOTE" 					"Note"						"ENABLED"	"ENABLED"
+    "PHYSICAL_ACTIVITY" 	"Activité physique"			"REQUIRED"	"ENABLED"
+	"INTELLECTUAL_ACTIVITY"	"Activité intellectuelle"	"REQUIRED"	"ENABLED"
+    "SYMPTOM"   			"Symptôme"					"ENABLED"	"DISABLED"
+    "RESOURCE"				"Resource"					"REQUIRED"	"REQUIRED"
 
 struct EntryType
     #id: text(16)
@@ -39,6 +52,8 @@ struct EntryType
 	physicalActivity: PhysicalActivity[0..1]
 
 space<EntryType>
+    "NOTE"      			"NOTE"						"Note"      			null
+
     "WALKING_SLOW"      	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
     "WALKING_NORMAL"    	"PHYSICAL_ACTIVITY"			"Marche"            	"WALKING_NORMAL"
     "WALKING_FAST"      	"PHYSICAL_ACTIVITY"			"Marche rapide"     	"WALKING_FAST"
@@ -71,8 +86,15 @@ struct Entry
 	subject: Subject
     time: datetime
     duration: int[0..1]
+	latitude: decimal(3,9)[0..1]
+	longitude: decimal(2,9)[0..1]
 	comment: text[0..1]
-
+	
+struct PhysicalActivityStats
+    #date: text(16)
+    duration: int
+	energy: int
+	
 `;
 
 export default txt;

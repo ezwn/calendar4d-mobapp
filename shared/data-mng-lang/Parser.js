@@ -36,7 +36,7 @@ class Parser {
       });
 
     const schema = { structs: this.structs, spaces: this.spaces };
-    console.log(JSON.stringify(schema, null, 3));
+    // console.log(JSON.stringify(schema, null, 3));
     return schema;
   }
 

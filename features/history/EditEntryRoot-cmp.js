@@ -47,7 +47,7 @@ export const EditEntryRoot = () => {
         </ContextualMenu>
       }
     >
-      <AutoForm schema={schema} data={observation} updateDataProp={update} />
+      <AutoForm schema={schema} data={observation} updateDataProp={update} structKey="Entry" />
     </VerticalBorderLayout>
   );
 };
