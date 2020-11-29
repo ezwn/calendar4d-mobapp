@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Text, View } from "react-native";
-import { Padded } from "ezwn-ux-native/layouts/Padded-cmp";
 import { TextInput } from "ezwn-ux-native/forms/TextInput-cmp";
 import { NumberInput } from "ezwn-ux-native/forms/NumberInput-cmp";
 import { Field } from "ezwn-ux-native/forms/Field-cmp";
@@ -31,6 +30,7 @@ const innerComponent = (type, onChange, value) => {
 
     switch (type.primitive) {
         case "int":
+        case "decimal":
             return <NumberInput onChangeNumber={onChange} value={value} />
         case "text":
             const multiline = !type.size;
