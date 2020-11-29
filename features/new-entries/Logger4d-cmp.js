@@ -63,7 +63,7 @@ export const Logger4d = ({ entryType, onUse }) => {
   }
 
   const record = async () => {
-    const state = await getCurrentState(category.duration !== "DISABLED");
+    const state = await getCurrentState(category.position !== "DISABLED");
 
     const duration = !startState ? undefined : Math.round((state.time - startState.time) / 1000.0);
     const time = startState && startState.time || state.time;

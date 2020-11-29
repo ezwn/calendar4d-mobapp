@@ -3,7 +3,7 @@
     "name": "Calendar4d",
     "slug": "calendar4d",
     "platforms": ["android", "web"],
-    "version": "0.2.2",
+    "version": "0.2.3",
     "orientation": "portrait",
     "icon": "./assets/icon-192.png",
     "splash": {
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "ezwn.calendar4d",
-      "versionCode": 9
+      "versionCode": 10
     },
     "ios": {
       "supportsTablet": true

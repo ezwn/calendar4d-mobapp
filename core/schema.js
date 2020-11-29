@@ -1,6 +1,6 @@
 const txt = `
 
-# 27/11/2020 20:20:00
+# 29/11/2020 10:38:00
 
 struct Subject
     #id: text(16)
@@ -43,7 +43,7 @@ finite space<EntryTypeCategory>
     "PHYSICAL_ACTIVITY" 	"Activité physique"			"REQUIRED"	"ENABLED"
 	"INTELLECTUAL_ACTIVITY"	"Activité intellectuelle"	"REQUIRED"	"ENABLED"
     "SYMPTOM"   			"Symptôme"					"ENABLED"	"DISABLED"
-    "RESOURCE"				"Resource"					"REQUIRED"	"REQUIRED"
+    "RESOURCE"				"Resource"					"DISABLED"	"REQUIRED"
 
 struct EntryType
     #id: text(16)
@@ -53,6 +53,7 @@ struct EntryType
 
 space<EntryType>
     "NOTE"      			"NOTE"						"Note"      			null
+    "RESOURCE"      		"RESOURCE"					"Ressource"    			null
 
     "WALKING_SLOW"      	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
     "WALKING_NORMAL"    	"PHYSICAL_ACTIVITY"			"Marche"            	"WALKING_NORMAL"
