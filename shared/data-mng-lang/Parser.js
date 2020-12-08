@@ -45,6 +45,8 @@ class Parser {
       this.newStruct(line);
     } else if (line.startsWith("space<") || line.startsWith("finite space<")) {
       this.newSpace(line);
+    } else if (line.startsWith("repo<")) {
+      this.newRepo(line);
     } else if (this.currentStruct) {
       this.addToStruct(line);
     } else if (this.currentSpace) {
@@ -68,10 +70,14 @@ class Parser {
     const [, primitive, , size, , mult] = propTypeStr.match(/([\d\w]+)(\(([\d\.,]*)\))?(\[([\d\.]*)\])?/);
 
     const isId = prefixedPropId.startsWith("#") || prefixedPropId.startsWith("$");
-    const propId = isId ? prefixedPropId.substring(1) : prefixedPropId
+    const isModificationTime = prefixedPropId.startsWith("@");
+    const isDeletedFlag = prefixedPropId.startsWith("-");
+    const propId = (isId || isModificationTime || isDeletedFlag) ? prefixedPropId.substring(1) : prefixedPropId
 
     this.currentStruct.props[propId] = {
       isId,
+      isModificationTime,
+      isDeletedFlag,
       id: propId,
       type: { primitive, size, mult },
       order: Object.keys(this.currentStruct.props).length
@@ -86,6 +92,11 @@ class Parser {
       values: []
     };
     this.spaces[struct] = this.currentSpace;
+  }
+
+  newRepo = (line) => {
+    this.currentStruct = null;
+    this.currentSpace = null;
   }
 
   addToSpace = (line) => {

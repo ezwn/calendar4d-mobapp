@@ -48,7 +48,10 @@ export const Logger4d = ({ entryType, onUse }) => {
       interval.current = setInterval(updateTime(startState.time), 250);
     }
 
-    return () => clearInterval(interval.current);
+    return () => {
+      clearInterval(interval.current);
+      interval.current = null;
+    };
   }, [startState, interval]);
 
   const updateTime = startTime => () => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 import initialData from "./initial-data.json";
-import { useBackendSave } from "shared/useBackendSave";
+import { pullEntries, pushEntries } from "shared/backendClient";
 
 const STORAGE_KEY = "calendar4d-entries";
 
@@ -24,22 +24,27 @@ export const CalendarProvider = ({ children }) => {
     () => initialData
   );
 
-  useEffect(() => {
+  const updateEntries = async () => {
     if (loaded) {
-      useBackendSave(entries);
+      const updatedEntries = await pullEntries(entries);
+      await pushEntries(updatedEntries);
     }
-  }, [entries, loaded]);
+  };
+
+  useEffect(() => {
+    updateEntries();
+  }, [entries, loaded, updateEntries]);
 
   const addEntry = (item) => {
     setEntries([...entries, item]);
   };
 
-  const updateEntry = (observation, key, value) => {
-    setEntries(entries.map(o => o.id !== observation.id ? o : { ...o, [key]: value }));
+  const updateEntry = (entry, valueMap) => {
+    setEntries(entries.map(e => e.id !== entry.id ? e : { ...e, ...valueMap }));
   }
 
-  const removeEntry = (observation, key, value) => {
-    setEntries(entries.filter(o => o.id !== observation.id));
+  const removeEntry = (entry,) => {
+    setEntries(entries.filter(o => o.id !== entry.id));
   }
 
   return loaded ? (

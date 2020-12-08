@@ -1,6 +1,6 @@
 const txt = `
 
-# 29/11/2020 10:38:00
+# 08/12/2020 08:15:00
 
 struct Subject
     #id: text(16)
@@ -90,6 +90,11 @@ struct Entry
 	latitude: decimal(3,9)[0..1]
 	longitude: decimal(2,9)[0..1]
 	comment: text[0..1]
+    @modificationTime: datetime[0..1]
+	-deleted: bool[0..1]
+	
+repo<Entry>
+	findAllByModificationTimeAfter(time)
 	
 struct PhysicalActivityStats
     #date: text(16)
