@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
-import initialData from "./initial-data.json";
 import { pullEntries, pushEntries } from "shared/backendClient";
+import { useSettings } from "shared/settings/Settings-ctx";
 
 const STORAGE_KEY = "calendar4d-entries";
 
@@ -19,21 +19,53 @@ export function generateEntyId(length = 16) {
 }
 
 export const CalendarProvider = ({ children }) => {
+  const { settings } = useSettings();
+
   const [entries, setEntries, loaded] = useStorage(
     STORAGE_KEY,
-    () => initialData
+    () => []
   );
 
-  const updateEntries = async () => {
-    if (loaded) {
-      const updatedEntries = await pullEntries(entries);
-      await pushEntries(updatedEntries);
+  const saveEntries = async (entries) => {
+    const updatedEntries = await pullEntries(settings, entries);
+    await pushEntries(settings, updatedEntries);
+    if (updatedEntries !== entries) {
+      setEntries(updatedEntries);
     }
   };
 
+  const loadEntries = async (entries) => {
+    const updatedEntries = await pullEntries(settings, entries);
+    if (updatedEntries !== entries) {
+      await pushEntries(settings, updatedEntries);
+      setEntries(updatedEntries);
+    } else {
+      console.log()
+    }
+  };
+
+  // onEntriesChanged : save them
   useEffect(() => {
-    updateEntries();
-  }, [entries, loaded, updateEntries]);
+    if (loaded) {
+      saveEntries(entries);
+    }
+  }, [loaded, saveEntries, entries]);
+
+  // load entries at regular intervals
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (loaded) {
+        loadEntries(entries);
+      }
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [loaded, loadEntries, entries]);
+
+  // public API
+  // ----------
 
   const addEntry = (item) => {
     setEntries([...entries, item]);

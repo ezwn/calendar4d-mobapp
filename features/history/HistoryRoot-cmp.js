@@ -10,6 +10,7 @@ export const HistoryRoot = () => {
       top={
         <TitleBar
           text="History"
+          left={<TitleBar.SettingsButton />}
         />
       }
     >

@@ -16,6 +16,7 @@ export const StatsRootView = () => {
       top={
         <TitleBar
           text="Stats"
+          left={<TitleBar.SettingsButton />}
         />
       }
     >

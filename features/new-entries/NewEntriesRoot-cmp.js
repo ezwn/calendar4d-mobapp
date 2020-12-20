@@ -14,6 +14,7 @@ export const NewEntriesRoot = () => {
       top={
         <TitleBar
           text="Create calendar entries..."
+          left={<TitleBar.SettingsButton />}
         />
       }
     >
