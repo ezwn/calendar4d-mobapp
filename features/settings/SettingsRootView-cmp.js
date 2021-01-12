@@ -17,7 +17,7 @@ export const SettingsRootView = () => {
     >
       <Field>
         <Text>Data server url:</Text>
-        <TextInput onChangeText={(value) => updateSetting("dataServerUrl", value)} value={settings.dataServerUrl} />
+        <TextInput value={settings.dataServerUrl} onChange={(value) => updateSetting("dataServerUrl", value)} />
       </Field>
     </VerticalBorderLayout>
   );

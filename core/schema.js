@@ -86,7 +86,7 @@ struct Entry
     type: EntryType
 	subject: Subject
     time: datetime
-    duration: int[0..1]
+    duration: duration[0..1]
 	latitude: decimal(3,9)[0..1]
 	longitude: decimal(2,9)[0..1]
 	comment: text[0..1]

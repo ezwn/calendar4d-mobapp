@@ -4,6 +4,8 @@ import { Text, View } from "react-native";
 import { TextInput } from "ezwn-ux-native/forms/TextInput-cmp";
 import { NumberInput } from "ezwn-ux-native/forms/NumberInput-cmp";
 import { Field } from "ezwn-ux-native/forms/Field-cmp";
+import { DateTimeInput } from "ezwn-ux-native/forms/DateTimeInput-cmp";
+import { DurationInput } from "ezwn-ux-native/forms/DurationInput-cmp";
 
 export const AutoForm = ({ schema, data, updateData, structKey }) => {
     const { structs } = schema;
@@ -40,22 +42,27 @@ const innerComponent = (type, onChange, value) => {
         case "decimal":
             return <NumberInput onChangeNumber={onChange} value={value} />
         case "datetime":
-            return <TextInput
-                onChangeText={onChange}
+            return <DateTimeInput
+                onChange={onChange}
+                value={value}
+            />
+        case "duration":
+            return <DurationInput
+                onChange={onChange}
                 value={value}
             />
         case "text":
             const multiline = !type.size;
 
             return <TextInput
-                onChangeText={onChange}
+                onChange={onChange}
                 value={value}
                 multiline={multiline}
                 height={multiline ? 80 : undefined}
             />
         default:
             return <TextInput
-                onChangeText={onChange}
+                onChange={onChange}
                 value={value}
             />;
     }
