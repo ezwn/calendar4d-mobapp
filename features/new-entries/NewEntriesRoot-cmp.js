@@ -4,7 +4,7 @@ import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayou
 import { TitleBar } from "ezwn-ux-native/app-components/TitleBar-cmp";
 import { View } from "react-native";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
-import { useSchema } from "shared/data-mng-lang/Schema-ctx";
+import { useSchema } from "ezwn-react-native-data-mng-lang/Schema-ctx";
 import { Logger4d } from "./Logger4d-cmp";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 

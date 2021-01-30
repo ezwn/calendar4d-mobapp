@@ -5,8 +5,8 @@ import { View } from "react-native";
 import { TextButton } from "ezwn-ux-native/app-components/TextButton-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
 import * as Location from 'expo-location';
-import { useSchema } from "shared/data-mng-lang/Schema-ctx";
-import { generateEntyId, useCalendar } from "shared/calendar/Calendar-ctx";
+import { useSchema } from "ezwn-react-native-data-mng-lang/Schema-ctx";
+import { generateEntryId, useCalendar } from "shared/calendar/Calendar-ctx";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 import { DurationOutput } from "ezwn-ux-native/forms/DurationOutput-cmp";
 
@@ -72,7 +72,7 @@ export const Logger4d = ({ entryType, onUse }) => {
     const time = startState && startState.time || state.time;
 
     addEntry({
-      id: generateEntyId(),
+      id: generateEntryId(),
       subject: "ME",
       type: entryType.id,
       time: new Date(time).toISOString().substring(0, 19),

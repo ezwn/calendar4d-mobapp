@@ -9,7 +9,7 @@ const CalendarContext = React.createContext();
 
 const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
 
-export function generateEntyId(length = 16) {
+export function generateEntryId(length = 16) {
   let str = '';
   const { length: n } = chars;
   for (let i = 0; i < length; i++) {

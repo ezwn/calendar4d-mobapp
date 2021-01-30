@@ -18,3 +18,5 @@ lib/ezwn-ux-native
 lib/ezwn-storage-native
 lib/ezwn-react-app
 lib/ezwn-react-app-ux-native
+lib/ezwn-react-native-session
+lib/ezwn-react-native-data-mng-lang

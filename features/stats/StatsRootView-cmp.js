@@ -3,7 +3,7 @@ import React from "react";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { TitleBar } from "ezwn-ux-native/app-components/TitleBar-cmp";
 import { useCalendar } from "shared/calendar/Calendar-ctx";
-import { useSchema } from "shared/data-mng-lang/Schema-ctx";
+import { useSchema } from "ezwn-react-native-data-mng-lang/Schema-ctx";
 import { DurationOutput } from "ezwn-ux-native/forms/DurationOutput-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
 import { daysAgo, toRelativeDate } from "shared/dates";

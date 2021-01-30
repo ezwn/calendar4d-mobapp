@@ -24,6 +24,8 @@ git clone https://github.com/ezwn/ezwn-ux-native.git
 git clone https://github.com/ezwn/ezwn-storage-native.git
 git clone https://github.com/ezwn/ezwn-react-app.git
 git clone https://github.com/ezwn/ezwn-react-app-ux-native.git
+git clone https://github.com/ezwn/ezwn-react-native-session.git
+git clone https://github.com/ezwn/ezwn-react-native-data-mng-lang.git
 ```
 
 ## Development

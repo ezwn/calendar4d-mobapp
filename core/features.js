@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CalendarProvider } from "shared/calendar/Calendar-ctx";
-import { SchemaProvider } from "shared/data-mng-lang/Schema-ctx";
+import { SchemaProvider } from "ezwn-react-native-data-mng-lang/Schema-ctx";
 
 import schemaText from "./schema.js";
 
