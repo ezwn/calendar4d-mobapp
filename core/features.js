@@ -8,17 +8,23 @@ import schemaText from "./schema.js";
 import * as HistoryFeature from "features/history/manifest";
 import * as NewEntriesFeature from "features/new-entries/manifest";
 import * as StatsFeature from "features/stats/manifest";
+
 import * as SettingsFeature from "features/settings/manifest";
 import { SettingsProvider } from "shared/settings/Settings-ctx.js";
 
-export const features = [NewEntriesFeature, StatsFeature, HistoryFeature, SettingsFeature];
+import { SessionProvider } from "ezwn-react-native-session/Session-ctx";
+import * as SessionFeature from "features/session/manifest";
+
+export const features = [NewEntriesFeature, StatsFeature, HistoryFeature, SettingsFeature, SessionFeature];
 
 export const GlobalProvider = ({ children }) => (
-      <SettingsProvider>
-            <SchemaProvider schemaText={schemaText}>
-                  <CalendarProvider>
-                        {children}
-                  </CalendarProvider>
-            </SchemaProvider>
-      </SettingsProvider>
+      <SchemaProvider schemaText={schemaText}>
+            <SettingsProvider>
+                  <SessionProvider dataServerUrl="http://B85M:9080">
+                        <CalendarProvider>
+                              {children}
+                        </CalendarProvider>
+                  </SessionProvider>
+            </SettingsProvider>
+      </SchemaProvider>
 );

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 import { pullEntries, pushEntries } from "shared/backendClient";
-import { useSettings } from "shared/settings/Settings-ctx";
+import { useSession } from "ezwn-react-native-session/Session-ctx";
 
 const STORAGE_KEY = "calendar4d-entries";
 
@@ -19,7 +19,7 @@ export function generateEntryId(length = 16) {
 }
 
 export const CalendarProvider = ({ children }) => {
-  const { settings } = useSettings();
+  const { fetch } = useSession();
 
   const [entries, setEntries, loaded] = useStorage(
     STORAGE_KEY,
@@ -27,17 +27,17 @@ export const CalendarProvider = ({ children }) => {
   );
 
   const saveEntries = async (entries) => {
-    const updatedEntries = await pullEntries(settings, entries);
-    await pushEntries(settings, updatedEntries);
+    const updatedEntries = await pullEntries(fetch, entries);
+    await pushEntries(fetch, updatedEntries);
     if (updatedEntries !== entries) {
       setEntries(updatedEntries);
     }
   };
 
   const loadEntries = async (entries) => {
-    const updatedEntries = await pullEntries(settings, entries);
+    const updatedEntries = await pullEntries(fetch, entries);
     if (updatedEntries !== entries) {
-      await pushEntries(settings, updatedEntries);
+      await pushEntries(fetch, updatedEntries);
       setEntries(updatedEntries);
     } else {
       console.log()

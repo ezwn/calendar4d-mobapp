@@ -1,10 +1,8 @@
 
-export const pullEntries = async (settings, entries) => {
+export const pullEntries = async (fetch, entries) => {
     try {
-        const { dataServerUrl } = settings;
-
         let changed = false;
-        const serverEntries = await (await fetch(`${dataServerUrl}/entry`)).json();
+        const serverEntries = await (await fetch(`/entry`)).json();
 
         // delete locally server side deleted entries
         let modifiedEntries = entries.map(entry => {
@@ -41,13 +39,11 @@ export const pullEntries = async (settings, entries) => {
     }
 };
 
-export const pushEntries = async (settings, entries) => {
+export const pushEntries = async (fetch, entries) => {
     // console.log("pushEntries", entries);
 
     try {
-        const { dataServerUrl } = settings;
-
-        await fetch(`${dataServerUrl}/entry/all`, {
+        await fetch(`/entry/all`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
