@@ -1,6 +1,8 @@
-# calendar4d
+# calendar4d-mobapp
 
-A simple react-native application to measure the time spent in physical training. Why? Because most commercial applications require sensors to work. I prefer to choose exactly the kind of activity I'm doing.
+Calendar4d is a react-native application to measure the time spent in different activities.
+
+This is the frontend of the application, made with react-native, expo, ...
 
 ## Screenshots
 
@@ -16,7 +18,7 @@ A simple react-native application to measure the time spent in physical training
 
 ## Dependencies
 
-To compile you need to clone ezwn-ux-native, ezwn-storage-native, ezwn-react-app and ezwn-react-app-ux-native (available from my github) into the lib folder :
+To compile, you'll need to clone ezwn-ux-native, ezwn-storage-native, ezwn-react-app and ezwn-react-app-ux-native (available from my github) into the lib folder:
 
 ```
 cd lib
@@ -42,6 +44,6 @@ See lib/ezwn-react-app/README.md.
 
 This project has been developed by Nicolas Enzweiler.
 
-E-Mail address: [nicolas.enzweiler@gmail.com](mailto:nicolas.enzweiler@gmail.com)
+E-Mail address: [logiboost@gmail.com](mailto:logiboost@gmail.com)
 
 Github : [https://github.com/ezwn](https://github.com/ezwn)
