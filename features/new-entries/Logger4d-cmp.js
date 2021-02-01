@@ -36,10 +36,10 @@ export const Logger4d = ({ entryType, onUse }) => {
 
   const [duration, setDuration] = useState(null);
 
-  const { schema: { spaces: { EntryTypeCategory: { values: entryTypeCategories } } } } = useSchema();
+  const { schema: { spaces: { EntryTypeClass: { values: entryTypeClasses } } } } = useSchema();
   const { addEntry } = useCalendar();
 
-  const category = entryTypeCategories.find(cat => cat.id === entryType.category);
+  const entryTypeClass = entryTypeClasses.find(cat => cat.id === entryType.entryTypeClass);
 
   const interval = useRef(null);
 
@@ -66,14 +66,14 @@ export const Logger4d = ({ entryType, onUse }) => {
   }
 
   const record = async () => {
-    const state = await getCurrentState(category.position !== "DISABLED");
+    const state = await getCurrentState(entryTypeClass.position !== "DISABLED");
 
     const duration = !startState ? undefined : Math.round((state.time - startState.time) / 1000.0);
     const time = startState && startState.time || state.time;
 
     addEntry({
       id: generateEntryId(),
-      subject: "ME",
+      topic: "NICOLAS_HEALTH",
       type: entryType.id,
       time: new Date(time).toISOString().substring(0, 19),
       duration,
@@ -87,7 +87,7 @@ export const Logger4d = ({ entryType, onUse }) => {
     onUse();
   };
 
-  const onPress = category.duration === "REQUIRED" ? start : record;
+  const onPress = entryTypeClass.duration === "REQUIRED" ? start : record;
 
   return <HorizontalLayout>
     <View style={{ flex: 1 }}>

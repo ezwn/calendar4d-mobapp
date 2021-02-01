@@ -1,13 +1,25 @@
 const txt = `
 
-# 08/12/2020 08:15:00
+# 01/02/2021 18:30:00
 
-struct Subject
+struct CalendarUser
+    #userName: text(2..16)
+	password: password(6..64)
+   
+space<CalendarUser>
+    "nicolas" 	"a1*a1*a1*"
+	"anne"		"a1*a1*a1*"
+	"demo"		"a1*a1*a1*"
+
+struct Topic
     #id: text(16)
-    name: text
+	calendarUser: CalendarUser
+    name: text(1..64)
 
-finite space<Subject>
-    "ME" 				"Moi"
+space<Topic>
+    "NICOLAS_HEALTH"    	"nicolas"	"My health"
+    "NICOLAS_CLIENTS"	    "nicolas"	"Work time by client"
+    "ANNE_CLIENTS"	    	"anne"		"Work time by client"
 
 struct PhysicalActivity
     #id: text(16)
@@ -32,59 +44,61 @@ finite space<AttributeRequirement>
     "ENABLED"   "Attribute can be used"
     "REQUIRED"	"Attribute is required"
 
-struct EntryTypeCategory
+struct EntryTypeClass
     #id: text(32)
     name: text
 	duration: AttributeRequirement
 	position: AttributeRequirement
 
-finite space<EntryTypeCategory>
+finite space<EntryTypeClass>
     "NOTE" 					"Note"						"ENABLED"	"ENABLED"
-    "PHYSICAL_ACTIVITY" 	"Activité physique"			"REQUIRED"	"ENABLED"
-	"INTELLECTUAL_ACTIVITY"	"Activité intellectuelle"	"REQUIRED"	"ENABLED"
-    "SYMPTOM"   			"Symptôme"					"ENABLED"	"DISABLED"
+    "PHYSICAL_ACTIVITY" 	"Physical activity"			"REQUIRED"	"ENABLED"
+	"WORK"					"Work"						"REQUIRED"	"ENABLED"
+	"INTELLECTUAL_ACTIVITY"	"Intellectual activity"		"REQUIRED"	"ENABLED"
+    "SYMPTOM"   			"Symptom"					"ENABLED"	"DISABLED"
     "RESOURCE"				"Resource"					"DISABLED"	"REQUIRED"
 
 struct EntryType
     #id: text(16)
-	category: EntryTypeCategory
-    name: text
+	calendarUser: CalendarUser
+	entryTypeClass: EntryTypeClass
+    name: text(1..64)
 	physicalActivity: PhysicalActivity[0..1]
 
 space<EntryType>
-    "NOTE"      			"NOTE"						"Note"      			null
-    "RESOURCE"      		"RESOURCE"					"Ressource"    			null
+    "NOTE"      			"nicolas"	"NOTE"						"Note"      			null
+    "RESOURCE"      		"nicolas"	"RESOURCE"					"Ressource"    			null
 
-    "WALKING_SLOW"      	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
-    "WALKING_NORMAL"    	"PHYSICAL_ACTIVITY"			"Marche"            	"WALKING_NORMAL"
-    "WALKING_FAST"      	"PHYSICAL_ACTIVITY"			"Marche rapide"     	"WALKING_FAST"
-    "RUNNING"           	"PHYSICAL_ACTIVITY"			"Course"            	"RUNNING"
-    "STEPPING"          	"PHYSICAL_ACTIVITY"			"Stepping"          	"STEPPING"
-    "BIKING_10"         	"PHYSICAL_ACTIVITY"			"Vélo 10km/h"       	"BIKING_10"
-    "BIKING_15"         	"PHYSICAL_ACTIVITY"			"Vélo 15km/h"       	"BIKING_15"
-    "BIKING_20"         	"PHYSICAL_ACTIVITY"			"Vélo 20km/h"       	"BIKING_20"
+    "WALKING_SLOW"      	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
+    "WALKING_NORMAL"    	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche"            	"WALKING_NORMAL"
+    "WALKING_FAST"      	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche rapide"     	"WALKING_FAST"
+    "RUNNING"           	"nicolas"	"PHYSICAL_ACTIVITY"			"Course"            	"RUNNING"
+    "STEPPING"          	"nicolas"	"PHYSICAL_ACTIVITY"			"Stepping"          	"STEPPING"
+    "BIKING_10"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 10km/h"       	"BIKING_10"
+    "BIKING_15"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 15km/h"       	"BIKING_15"
+    "BIKING_20"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 20km/h"       	"BIKING_20"
 
-    "MATHEMATICS"      		"INTELLECTUAL_ACTIVITY"		"Mathématiques"      	null
-    "CHINESE"		    	"INTELLECTUAL_ACTIVITY"		"Chinois"            	null
-    "HEALTH"		    	"INTELLECTUAL_ACTIVITY"		"Santé"	            	null
-    "ENGLISH"		    	"INTELLECTUAL_ACTIVITY"		"Anglais"            	null
-    "ANXIETY"      			"SYMPTOM"					"Anxiété"				null
+    "MATHEMATICS"      		"nicolas"	"INTELLECTUAL_ACTIVITY"		"Mathématiques"      	null
+    "CHINESE"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Chinois"            	null
+    "HEALTH"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Santé"	            	null
+    "ENGLISH"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Anglais"            	null
+    "ANXIETY"      			"nicolas"	"SYMPTOM"					"Anxiété"				null
 
-    "COUGH"					"SYMPTOM"					"Toux"					null
-    "DIARRHEA"				"SYMPTOM"					"Diarrhé"				null
-    "DISCOURAGEMENT"		"SYMPTOM"					"Découragement"			null
-    "FATIGUE"      			"SYMPTOM"					"Fatigue"				null
-    "HEADACHE"				"SYMPTOM"					"Mal de tête"			null
-    "INSOMNIA"				"SYMPTOM"					"Insomnie"				null
-    "NIGHT_SWEATS" 			"SYMPTOM"					"Sueurs nocturnes"		null
-    "NAUSEA"				"SYMPTOM"					"Nausée"				null
-    "RHINITIS"				"SYMPTOM"					"Rhinite"				null
-    "BACK_PAIN"      		"SYMPTOM"					"Mal au dos"			null
+    "COUGH"					"nicolas"	"SYMPTOM"					"Toux"					null
+    "DIARRHEA"				"nicolas"	"SYMPTOM"					"Diarrhé"				null
+    "DISCOURAGEMENT"		"nicolas"	"SYMPTOM"					"Découragement"			null
+    "FATIGUE"      			"nicolas"	"SYMPTOM"					"Fatigue"				null
+    "HEADACHE"				"nicolas"	"SYMPTOM"					"Mal de tête"			null
+    "INSOMNIA"				"nicolas"	"SYMPTOM"					"Insomnie"				null
+    "NIGHT_SWEATS" 			"nicolas"	"SYMPTOM"					"Sueurs nocturnes"		null
+    "NAUSEA"				"nicolas"	"SYMPTOM"					"Nausée"				null
+    "RHINITIS"				"nicolas"	"SYMPTOM"					"Rhinite"				null
+    "BACK_PAIN"      		"nicolas"	"SYMPTOM"					"Mal au dos"			null
 
 struct Entry
     #id: text(16)
     type: EntryType
-	subject: Subject
+	topic: Topic
     time: datetime
     duration: duration[0..1]
 	latitude: decimal(3,9)[0..1]
@@ -96,11 +110,14 @@ struct Entry
 repo<Entry>
 	findAllByModificationTimeAfter(time)
 	
+repo<CalendarUser>
+	findByUserName(userName)
+	
 struct PhysicalActivityStats
     #date: text(16)
     duration: int
 	energy: int
-	
+
 `;
 
 export default txt;

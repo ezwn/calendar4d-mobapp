@@ -37,7 +37,7 @@ export const DayStats = ({ isoDate }) => {
       entry,
       type: entryTypes.find(a => a.id === entry.type)
     }))
-    .filter(typedEntry => typedEntry.type.category === "PHYSICAL_ACTIVITY");
+    .filter(typedEntry => typedEntry.type.entryTypeClass === "PHYSICAL_ACTIVITY");
 
   const duration = typedEntries.reduce((accu, typedEntry) => accu + typedEntry.entry.duration, 0);
   const energy = typedEntries.reduce((accu, typedEntry) =>
