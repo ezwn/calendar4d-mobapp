@@ -18,16 +18,24 @@ import * as SessionFeature from "features/session/manifest";
 import * as TopicCrudFeature from "features/topic-crud/manifest";
 import * as EntryTypeCrudFeature from "features/entry-type-crud/manifest";
 
-export const features = [NewEntriesFeature, StatsFeature, HistoryFeature, TopicCrudFeature, EntryTypeCrudFeature, SettingsFeature, SessionFeature];
+export const features = [
+  NewEntriesFeature,
+  StatsFeature,
+  HistoryFeature,
+  TopicCrudFeature,
+  EntryTypeCrudFeature,
+  SettingsFeature,
+  SessionFeature
+];
 
 export const GlobalProvider = ({ children }) => (
-      <SchemaProvider schemaText={schemaText}>
-            <SettingsProvider>
-                  <SessionProvider dataServerUrl="http://B85M:9080">
-                        <CalendarProvider>
-                              {children}
-                        </CalendarProvider>
-                  </SessionProvider>
-            </SettingsProvider>
-      </SchemaProvider>
+  <SchemaProvider schemaText={schemaText}>
+    <SettingsProvider>
+      <SessionProvider dataServerUrl="http://ideapad:9080/api/v1">
+        {/* <CalendarProvider> */}
+        {children}
+        {/* </CalendarProvider> */}
+      </SessionProvider>
+    </SettingsProvider>
+  </SchemaProvider>
 );

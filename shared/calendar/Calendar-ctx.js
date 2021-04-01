@@ -7,10 +7,10 @@ const STORAGE_KEY = "calendar4d-entries";
 
 const CalendarContext = React.createContext();
 
-const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+const chars = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";
 
 export function generateEntryId(length = 16) {
-  let str = '';
+  let str = "";
   const { length: n } = chars;
   for (let i = 0; i < length; i++) {
     str += chars.charAt(Math.floor(Math.random() * n));
@@ -21,10 +21,7 @@ export function generateEntryId(length = 16) {
 export const CalendarProvider = ({ children }) => {
   const { fetch } = useSession();
 
-  const [entries, setEntries, loaded] = useStorage(
-    STORAGE_KEY,
-    () => []
-  );
+  const [entries, setEntries, loaded] = useStorage(STORAGE_KEY, () => []);
 
   const saveEntries = async (entries) => {
     const updatedEntries = await pullEntries(fetch, entries);
@@ -40,7 +37,7 @@ export const CalendarProvider = ({ children }) => {
       await pushEntries(fetch, updatedEntries);
       setEntries(updatedEntries);
     } else {
-      console.log()
+      console.log();
     }
   };
 
@@ -52,17 +49,17 @@ export const CalendarProvider = ({ children }) => {
   }, [loaded, saveEntries, entries]);
 
   // load entries at regular intervals
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (loaded) {
-        loadEntries(entries);
-      }
-    }, 10000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (loaded) {
+  //       loadEntries(entries);
+  //     }
+  //   }, 10000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [loaded, loadEntries, entries]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [loaded, loadEntries, entries]);
 
   // public API
   // ----------
@@ -72,12 +69,14 @@ export const CalendarProvider = ({ children }) => {
   };
 
   const updateEntry = (entry, valueMap) => {
-    setEntries(entries.map(e => e.id !== entry.id ? e : { ...e, ...valueMap }));
-  }
+    setEntries(
+      entries.map((e) => (e.id !== entry.id ? e : { ...e, ...valueMap }))
+    );
+  };
 
-  const removeEntry = (entry,) => {
-    setEntries(entries.filter(o => o.id !== entry.id));
-  }
+  const removeEntry = (entry) => {
+    setEntries(entries.filter((o) => o.id !== entry.id));
+  };
 
   return loaded ? (
     <CalendarContext.Provider

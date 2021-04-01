@@ -1,15 +1,33 @@
 const txt = `
 
-# 01/02/2021 18:30:00
+# 30/03/2021 17:21:00
 
 struct CalendarUser
     #userName: text(2..16)
-	password: password(6..64)
+	password: password(6..128)
    
+# password: a1*a1*a1*
 space<CalendarUser>
-    "nicolas" 	"a1*a1*a1*"
-	"anne"		"a1*a1*a1*"
-	"demo"		"a1*a1*a1*"
+    "n" 	"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
+	"a"		"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
+	"d"		"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
+
+struct Role
+    #id: text(4..8)
+
+finite space<Role>
+    "ADMIN"
+    "USER"
+
+struct UserRole
+    #id: text(16)
+	userId: CalendarUser
+    role: Role
+
+space<UserRole>
+    "n-ADMIN"	"n"		"ADMIN"
+	"a-USER"	"a"		"USER"
+	"d-USER"	"d"		"USER"
 
 struct Topic
     #id: text(16)
@@ -20,6 +38,11 @@ space<Topic>
     "NICOLAS_HEALTH"    	"nicolas"	"My health"
     "NICOLAS_CLIENTS"	    "nicolas"	"Work time by client"
     "ANNE_CLIENTS"	    	"anne"		"Work time by client"
+
+repo<Topic> for Admin
+	findAll()
+	save()
+	delete()
 
 struct PhysicalActivity
     #id: text(16)
@@ -60,13 +83,13 @@ finite space<EntryTypeClass>
 
 struct EntryType
     #id: text(16)
-	calendarUser: CalendarUser
+	@calendarUser: CalendarUser
 	entryTypeClass: EntryTypeClass
     name: text(1..64)
 	physicalActivity: PhysicalActivity[0..1]
 
 space<EntryType>
-    "NOTE"      			"nicolas"	"NOTE"						"Note"      			null
+    "NOTE"      			"n"	"NOTE"						"Note"      			null
     "RESOURCE"      		"nicolas"	"RESOURCE"					"Ressource"    			null
 
     "WALKING_SLOW"      	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
@@ -97,6 +120,7 @@ space<EntryType>
 
 struct Entry
     #id: text(16)
+	@calendarUser: CalendarUser
     type: EntryType
 	topic: Topic
     time: datetime
@@ -104,14 +128,28 @@ struct Entry
 	latitude: decimal(3,9)[0..1]
 	longitude: decimal(2,9)[0..1]
 	comment: text[0..1]
-    @modificationTime: datetime[0..1]
+    *modificationTime: datetime[0..1]
 	-deleted: bool[0..1]
+
+repo<Entry> for Admin
+	findAll()
+	save()
+	saveAll()
+	delete()
 	
-repo<Entry>
-	findAllByModificationTimeAfter(time)
+repo<Entry> for User
+	findAllMine()
+	findAllMineByModificationTimeAfter()
+	saveMine()
+	saveAllMine()
+	deleteMine()
 	
-repo<CalendarUser>
-	findByUserName(userName)
+repo<CalendarUser> for System
+	save()
+	findByUserName()
+
+repo<UserRole> for System
+	findAllByUserId()
 	
 struct PhysicalActivityStats
     #date: text(16)
