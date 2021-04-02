@@ -15,15 +15,13 @@ import { SettingsProvider } from "shared/settings/Settings-ctx.js";
 import { SessionProvider } from "ezwn-react-native-session/Session-ctx";
 import * as SessionFeature from "features/session/manifest";
 
-import * as TopicCrudFeature from "features/topic-crud/manifest";
-import * as EntryTypeCrudFeature from "features/entry-type-crud/manifest";
+import * as AdminFeature from "features/admin/manifest";
 
 export const features = [
   NewEntriesFeature,
   StatsFeature,
   HistoryFeature,
-  TopicCrudFeature,
-  EntryTypeCrudFeature,
+  AdminFeature,
   SettingsFeature,
   SessionFeature
 ];

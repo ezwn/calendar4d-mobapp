@@ -10,7 +10,7 @@ export const LoginRoot = () => {
 
   return (
     <VerticalBorderLayout top={<TitleBar text="Please log in" />}>
-      <LoginForm onSuccess={() => history.push(`/topic/crud`)} />
+      <LoginForm onSuccess={() => history.push(`/admin/topic`)} />
     </VerticalBorderLayout>
   );
 };
