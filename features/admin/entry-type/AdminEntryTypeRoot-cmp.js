@@ -4,17 +4,19 @@ import { View } from "react-native";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
+import { StructList } from "ezwn-react-native-data-schema/StructList-cmp";
 
-import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
 import { useAdminEntryTypeRepository } from "./AdminEntryTypeRepository-ctx";
 
 export const AdminEntryTypeRoot = () => {
+  const repository = useAdminEntryTypeRepository();
+
   return (
     <VerticalBorderLayout>
-      <CrudList
+      <StructList
         routerLocation="/admin/entry-type"
         ItemContentComponent={EntryTypeListItem}
-        useRepository={useAdminEntryTypeRepository}
+        repository={repository}
       />
     </VerticalBorderLayout>
   );

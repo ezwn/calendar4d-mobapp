@@ -4,17 +4,19 @@ import { View } from "react-native";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
+import { StructList } from "ezwn-react-native-data-schema/StructList-cmp";
 
-import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
 import { useSettingsTopicRepository } from "./SettingsTopicRepository-ctx";
 
 export const SettingsTopicRoot = () => {
+  const repository = useSettingsTopicRepository();
+
   return (
     <VerticalBorderLayout>
-      <CrudList
+      <StructList
         routerLocation="/settings/topic"
         ItemContentComponent={TopicListItem}
-        useRepository={useSettingsTopicRepository}
+        repository={repository}
       />
     </VerticalBorderLayout>
   );

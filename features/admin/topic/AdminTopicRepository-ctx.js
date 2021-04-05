@@ -1,5 +1,5 @@
 import { generateRandomTextId } from "shared/generateRandomTextId";
-import crudRepositoryContextFactory from "ezwn-react-native-generic-crud-feature/crudRepositoryContextFactory";
+import crudRepositoryContextFactory from "ezwn-react-native-persist-common/crudRepositoryContextFactory";
 
 const createNew = () => ({ id: generateRandomTextId(16), name: "" });
 

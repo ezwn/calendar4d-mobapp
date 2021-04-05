@@ -3,16 +3,16 @@ import { useParams } from "react-router";
 
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { TitleBar } from "ezwn-ux-native/app-components/TitleBar-cmp";
-
-import { CrudItemDetails } from "ezwn-react-native-generic-crud-feature/CrudItemDetails-cmp";
+import { StructAdvancedForm } from "ezwn-react-native-data-schema/StructAdvancedForm-cmp";
+import { useFindByIdInSpace } from "ezwn-react-native-data-schema/hooks/useFindByIdInSpace";
+import { useSearchInSpace } from "ezwn-react-native-data-schema/hooks/useSearchInSpace";
 
 import { useSettingsEntryTypeRepository } from "./SettingsEntryTypeRepository-ctx";
-import { useFindByIdInSpace } from "ezwn-react-native-data-mng-lang/hooks/useFindByIdInSpace";
-import { useSearchInSpace } from "ezwn-react-native-data-mng-lang/hooks/useSearchInSpace";
 
 export const SettingsEntryTypeDetailRoot = () => {
   const { id } = useParams();
   const [titleText, setTitleText] = useState("Entry type...");
+  const repository = useSettingsEntryTypeRepository();
 
   const resolve = useFindByIdInSpace("EntryTypeClass", "id");
   const byWordSearch = useSearchInSpace("EntryTypeClass", "id", "name");
@@ -28,8 +28,8 @@ export const SettingsEntryTypeDetailRoot = () => {
     <VerticalBorderLayout
       top={<TitleBar text={titleText} left={<TitleBar.BackButton />} />}
     >
-      <CrudItemDetails
-        useRepository={useSettingsEntryTypeRepository}
+      <StructAdvancedForm
+        repository={repository}
         structId="EntryType"
         labelProp="name"
         id={id}

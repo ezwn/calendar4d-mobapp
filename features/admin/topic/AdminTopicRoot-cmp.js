@@ -4,17 +4,19 @@ import { View } from "react-native";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
+import { StructList } from "ezwn-react-native-data-schema/StructList-cmp";
 
-import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
 import { useAdminTopicRepository } from "./AdminTopicRepository-ctx";
 
 export const AdminTopicRoot = () => {
+  const repository = useAdminTopicRepository();
+
   return (
     <VerticalBorderLayout>
-      <CrudList
+      <StructList
         routerLocation="/admin/topic"
         ItemContentComponent={TopicListItem}
-        useRepository={useAdminTopicRepository}
+        repository={repository}
       />
     </VerticalBorderLayout>
   );

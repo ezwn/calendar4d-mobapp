@@ -7,7 +7,7 @@ import { TabMenu } from "ezwn-ux-native/app-components/TabMenu-cmp";
 
 import * as TopicCrudFeature from "./topic/manifest";
 import * as EntryTypeCrudFeature from "./entry-type/manifest";
-import { RestrictedAccess } from "ezwn-react-native-session/RestrictedAccess-cmp";
+import { RestrictedAccess } from "ezwn-react-native-persist-common/RestrictedAccess-cmp";
 
 export const id = "AdminFeature";
 

@@ -4,8 +4,8 @@ import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { View } from "react-native";
 import { TextButton } from "ezwn-ux-native/app-components/TextButton-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
-import * as Location from 'expo-location';
-import { useSchema } from "ezwn-react-native-data-mng-lang/Schema-ctx";
+import * as Location from "expo-location";
+import { useSchema } from "ezwn-react-native-data-schema/Schema-ctx";
 import { generateEntryId, useCalendar } from "shared/calendar/Calendar-ctx";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 import { DurationOutput } from "ezwn-ux-native/forms/DurationOutput-cmp";
@@ -15,18 +15,18 @@ const getCurrentState = async (captureLocation) => {
 
   if (captureLocation) {
     let { status } = await Location.requestPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
     }
 
     location = await Location.getCurrentPositionAsync({});
   }
 
   return {
-    ...(location && location.coords || {}),
+    ...((location && location.coords) || {}),
     time: new Date().getTime()
   };
-}
+};
 
 export const Logger4d = ({ entryType, onUse }) => {
   const [startState, setStartState] = useStorage(
@@ -36,10 +36,18 @@ export const Logger4d = ({ entryType, onUse }) => {
 
   const [duration, setDuration] = useState(null);
 
-  const { schema: { spaces: { EntryTypeClass: { values: entryTypeClasses } } } } = useSchema();
+  const {
+    schema: {
+      spaces: {
+        EntryTypeClass: { values: entryTypeClasses }
+      }
+    }
+  } = useSchema();
   const { addEntry } = useCalendar();
 
-  const entryTypeClass = entryTypeClasses.find(cat => cat.id === entryType.entryTypeClass);
+  const entryTypeClass = entryTypeClasses.find(
+    (cat) => cat.id === entryType.entryTypeClass
+  );
 
   const interval = useRef(null);
 
@@ -54,22 +62,24 @@ export const Logger4d = ({ entryType, onUse }) => {
     };
   }, [startState, interval]);
 
-  const updateTime = startTime => () => {
+  const updateTime = (startTime) => () => {
     const endTime = new Date();
     const dur = Math.round((endTime - startTime) / 1000.0);
     setDuration(dur);
-  }
+  };
 
   const start = async () => {
     setStartState(await getCurrentState(false));
     onUse();
-  }
+  };
 
   const record = async () => {
     const state = await getCurrentState(entryTypeClass.position !== "DISABLED");
 
-    const duration = !startState ? undefined : Math.round((state.time - startState.time) / 1000.0);
-    const time = startState && startState.time || state.time;
+    const duration = !startState
+      ? undefined
+      : Math.round((state.time - startState.time) / 1000.0);
+    const time = (startState && startState.time) || state.time;
 
     addEntry({
       id: generateEntryId(),
@@ -89,20 +99,24 @@ export const Logger4d = ({ entryType, onUse }) => {
 
   const onPress = entryTypeClass.duration === "REQUIRED" ? start : record;
 
-  return <HorizontalLayout>
-    <View style={{ flex: 1 }}>
-      <ListItem.Title>{entryType.name}</ListItem.Title>
-      <ListItem.SubTitle><DurationOutput value={duration} /></ListItem.SubTitle>
-    </View>
-    {!startState && <TextButton onPress={onPress}>
-      Record
-    </TextButton>}
-    {startState && <TextButton alt={true} onPress={record}>
-      Done
-    </TextButton>}
-  </HorizontalLayout>
+  return (
+    <HorizontalLayout>
+      <View style={{ flex: 1 }}>
+        <ListItem.Title>{entryType.name}</ListItem.Title>
+        <ListItem.SubTitle>
+          <DurationOutput value={duration} />
+        </ListItem.SubTitle>
+      </View>
+      {!startState && <TextButton onPress={onPress}>Record</TextButton>}
+      {startState && (
+        <TextButton alt={true} onPress={record}>
+          Done
+        </TextButton>
+      )}
+    </HorizontalLayout>
+  );
 };
 
 Logger4d.defaultProps = {
-  onUse: () => { }
-}
+  onUse: () => {}
+};

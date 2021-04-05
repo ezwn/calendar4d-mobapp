@@ -1,7 +1,7 @@
 import React from "react";
 
 import { CalendarProvider } from "shared/calendar/Calendar-ctx";
-import { SchemaProvider } from "ezwn-react-native-data-mng-lang/Schema-ctx";
+import { SchemaProvider } from "ezwn-react-native-data-schema/Schema-ctx";
 
 import schemaText from "./schema.js";
 
@@ -12,7 +12,7 @@ import * as StatsFeature from "features/stats/manifest";
 import * as SettingsFeature from "features/settings/manifest";
 import { SettingsProvider } from "shared/settings/Settings-ctx.js";
 
-import { SessionProvider } from "ezwn-react-native-session/Session-ctx";
+import { SessionProvider } from "ezwn-react-native-persist-common/Session-ctx";
 import * as SessionFeature from "features/session/manifest";
 
 import * as AdminFeature from "features/admin/manifest";

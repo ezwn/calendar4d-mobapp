@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useStorage } from "ezwn-storage-native/JSONAsyncStorage";
 import { pullEntries, pushEntries } from "shared/backendClient";
-import { useSession } from "ezwn-react-native-session/Session-ctx";
+import { useSession } from "ezwn-react-native-persist-common/Session-ctx";
 
 const STORAGE_KEY = "calendar4d-entries";
 

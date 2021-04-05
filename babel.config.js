@@ -11,9 +11,10 @@ module.exports = function (api) {
             "ezwn-storage-native": "./lib/ezwn-storage-native",
             "ezwn-react-app": "./lib/ezwn-react-app",
             "ezwn-react-app-ux-native": "./lib/ezwn-react-app-ux-native",
-            "ezwn-react-native-session": "./lib/ezwn-react-native-session",
-            "ezwn-react-native-data-mng-lang": "./lib/ezwn-react-native-data-mng-lang",
-            "ezwn-react-native-generic-crud-feature": "./lib/ezwn-react-native-generic-crud-feature",
+            "ezwn-react-native-persist-common":
+              "./lib/ezwn-react-native-persist-common",
+            "ezwn-react-native-data-schema":
+              "./lib/ezwn-react-native-data-schema",
             features: "./features",
             shared: "./shared"
           }

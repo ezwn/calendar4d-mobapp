@@ -4,18 +4,19 @@ import { View } from "react-native";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
-
-import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
+import { StructList } from "ezwn-react-native-data-schema/StructList-cmp";
 
 import { useSettingsEntryTypeRepository } from "./SettingsEntryTypeRepository-ctx";
 
 export const SettingsEntryTypeRoot = () => {
+  const repository = useSettingsEntryTypeRepository();
+
   return (
     <VerticalBorderLayout>
-      <CrudList
+      <StructList
         routerLocation="/settings/entry-type"
         ItemContentComponent={EntryTypeListItem}
-        useRepository={useSettingsEntryTypeRepository}
+        repository={repository}
       />
     </VerticalBorderLayout>
   );

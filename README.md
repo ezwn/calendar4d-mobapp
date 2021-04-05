@@ -25,9 +25,8 @@ git clone https://github.com/ezwn/ezwn-ux-native.git
 git clone https://github.com/ezwn/ezwn-storage-native.git
 git clone https://github.com/ezwn/ezwn-react-app.git
 git clone https://github.com/ezwn/ezwn-react-app-ux-native.git
-git clone https://github.com/ezwn/ezwn-react-native-session.git
-git clone https://github.com/ezwn/ezwn-react-native-data-mng-lang.git
-git clone https://github.com/ezwn/ezwn-react-native-generic-crud-feature.git
+git clone https://github.com/ezwn/ezwn-react-native-persist-common.git
+git clone https://github.com/ezwn/ezwn-react-native-data-schema.git
 ```
 
 ## Development
