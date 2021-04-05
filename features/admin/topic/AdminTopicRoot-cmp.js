@@ -6,7 +6,7 @@ import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
 
 import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
-import { useAdminTopicRepository } from "features/admin/topic/AdminTopicRepository-ctx";
+import { useAdminTopicRepository } from "./AdminTopicRepository-ctx";
 
 export const AdminTopicRoot = () => {
   return (

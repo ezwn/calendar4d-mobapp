@@ -1,6 +1,10 @@
 const txt = `
 
-# 30/03/2021 17:21:00
+# 05/04/2021 09:30:00
+
+# ------------
+# CalendarUser
+# ------------
 
 struct CalendarUser
     #userName: text(2..16)
@@ -11,6 +15,14 @@ space<CalendarUser>
     "n" 	"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
 	"a"		"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
 	"d"		"$2y$12$K3tLc8T8t1v5T4Jusij76.iVp92vT2owjef4komhSfioiw7iYI8ei"
+	
+repo<CalendarUser> for System
+	save()
+	findByUserName()
+
+# ----
+# Role
+# ----
 
 struct Role
     #id: text(4..8)
@@ -19,6 +31,11 @@ finite space<Role>
     "ADMIN"
     "USER"
 
+
+# --------
+# UserRole
+# --------
+
 struct UserRole
     #id: text(16)
 	userId: CalendarUser
@@ -26,37 +43,40 @@ struct UserRole
 
 space<UserRole>
     "n-ADMIN"	"n"		"ADMIN"
+    "n-USER"	"n"		"USER"
 	"a-USER"	"a"		"USER"
 	"d-USER"	"d"		"USER"
 
+repo<UserRole> for System
+	findAllByUserId()
+
+# -----
+# Topic
+# -----
+
 struct Topic
     #id: text(16)
-	calendarUser: CalendarUser
+	@calendarUser: CalendarUser
     name: text(1..64)
 
 space<Topic>
-    "NICOLAS_HEALTH"    	"nicolas"	"My health"
-    "NICOLAS_CLIENTS"	    "nicolas"	"Work time by client"
-    "ANNE_CLIENTS"	    	"anne"		"Work time by client"
+    "NICOLAS_HEALTH"    	"n"	"My health"
+    "NICOLAS_CLIENTS"	    "n"	"Work time by client"
+    "ANNE_CLIENTS"	    	"a"	"Work time by client"
 
 repo<Topic> for Admin
 	findAll()
 	save()
 	delete()
 
-struct PhysicalActivity
-    #id: text(16)
-    energy: int
+repo<Topic> for User
+	findAllMine()
+	saveMine()
+	deleteMine()
 
-space<PhysicalActivity>
-    "WALKING_SLOW"      210
-    "WALKING_NORMAL"   	300
-    "WALKING_FAST"     	420
-    "RUNNING"          	600
-    "STEPPING"      	600
-    "BIKING_10"       	210
-    "BIKING_15"       	420
-    "BIKING_20"       	600
+# --------------------
+# AttributeRequirement
+# --------------------
 
 struct AttributeRequirement
 	#id: text(32)
@@ -66,6 +86,10 @@ finite space<AttributeRequirement>
     "DISABLED"	"Attribute can't be used"
     "ENABLED"   "Attribute can be used"
     "REQUIRED"	"Attribute is required"
+
+# --------------
+# EntryTypeClass
+# --------------
 
 struct EntryTypeClass
     #id: text(32)
@@ -81,42 +105,60 @@ finite space<EntryTypeClass>
     "SYMPTOM"   			"Symptom"					"ENABLED"	"DISABLED"
     "RESOURCE"				"Resource"					"DISABLED"	"REQUIRED"
 
+# ---------
+# EntryType
+# ---------
+
 struct EntryType
     #id: text(16)
 	@calendarUser: CalendarUser
 	entryTypeClass: EntryTypeClass
     name: text(1..64)
-	physicalActivity: PhysicalActivity[0..1]
+	energyPerHour: int[0..1]
 
 space<EntryType>
     "NOTE"      			"n"	"NOTE"						"Note"      			null
-    "RESOURCE"      		"nicolas"	"RESOURCE"					"Ressource"    			null
+    "RESOURCE"      		"n"	"RESOURCE"					"Ressource"    			null
 
-    "WALKING_SLOW"      	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche lente"      	"WALKING_SLOW"
-    "WALKING_NORMAL"    	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche"            	"WALKING_NORMAL"
-    "WALKING_FAST"      	"nicolas"	"PHYSICAL_ACTIVITY"			"Marche rapide"     	"WALKING_FAST"
-    "RUNNING"           	"nicolas"	"PHYSICAL_ACTIVITY"			"Course"            	"RUNNING"
-    "STEPPING"          	"nicolas"	"PHYSICAL_ACTIVITY"			"Stepping"          	"STEPPING"
-    "BIKING_10"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 10km/h"       	"BIKING_10"
-    "BIKING_15"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 15km/h"       	"BIKING_15"
-    "BIKING_20"         	"nicolas"	"PHYSICAL_ACTIVITY"			"Vélo 20km/h"       	"BIKING_20"
+    "WALKING_SLOW"      	"n"	"PHYSICAL_ACTIVITY"			"Marche lente"      	210
+    "WALKING_NORMAL"    	"n"	"PHYSICAL_ACTIVITY"			"Marche"            	300
+    "WALKING_FAST"      	"n"	"PHYSICAL_ACTIVITY"			"Marche rapide"     	420
+    "RUNNING"           	"n"	"PHYSICAL_ACTIVITY"			"Course"            	600
+    "STEPPING"          	"n"	"PHYSICAL_ACTIVITY"			"Stepping"          	600
+    "BIKING_10"         	"n"	"PHYSICAL_ACTIVITY"			"Vélo 10km/h"       	210
+    "BIKING_15"         	"n"	"PHYSICAL_ACTIVITY"			"Vélo 15km/h"       	420
+    "BIKING_20"         	"n"	"PHYSICAL_ACTIVITY"			"Vélo 20km/h"       	600
 
-    "MATHEMATICS"      		"nicolas"	"INTELLECTUAL_ACTIVITY"		"Mathématiques"      	null
-    "CHINESE"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Chinois"            	null
-    "HEALTH"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Santé"	            	null
-    "ENGLISH"		    	"nicolas"	"INTELLECTUAL_ACTIVITY"		"Anglais"            	null
-    "ANXIETY"      			"nicolas"	"SYMPTOM"					"Anxiété"				null
+    "MATHEMATICS"      		"n"	"INTELLECTUAL_ACTIVITY"		"Mathématiques"      	null
+    "CHINESE"		    	"n"	"INTELLECTUAL_ACTIVITY"		"Chinois"            	null
+    "HEALTH"		    	"n"	"INTELLECTUAL_ACTIVITY"		"Santé"	            	null
+    "ENGLISH"		    	"n"	"INTELLECTUAL_ACTIVITY"		"Anglais"            	null
+    "ANXIETY"      			"n"	"SYMPTOM"					"Anxiété"				null
 
-    "COUGH"					"nicolas"	"SYMPTOM"					"Toux"					null
-    "DIARRHEA"				"nicolas"	"SYMPTOM"					"Diarrhé"				null
-    "DISCOURAGEMENT"		"nicolas"	"SYMPTOM"					"Découragement"			null
-    "FATIGUE"      			"nicolas"	"SYMPTOM"					"Fatigue"				null
-    "HEADACHE"				"nicolas"	"SYMPTOM"					"Mal de tête"			null
-    "INSOMNIA"				"nicolas"	"SYMPTOM"					"Insomnie"				null
-    "NIGHT_SWEATS" 			"nicolas"	"SYMPTOM"					"Sueurs nocturnes"		null
-    "NAUSEA"				"nicolas"	"SYMPTOM"					"Nausée"				null
-    "RHINITIS"				"nicolas"	"SYMPTOM"					"Rhinite"				null
-    "BACK_PAIN"      		"nicolas"	"SYMPTOM"					"Mal au dos"			null
+    "COUGH"					"n"	"SYMPTOM"					"Toux"					null
+    "DIARRHEA"				"n"	"SYMPTOM"					"Diarrhé"				null
+    "DISCOURAGEMENT"		"n"	"SYMPTOM"					"Découragement"			null
+    "FATIGUE"      			"n"	"SYMPTOM"					"Fatigue"				null
+    "HEADACHE"				"n"	"SYMPTOM"					"Mal de tête"			null
+    "INSOMNIA"				"n"	"SYMPTOM"					"Insomnie"				null
+    "NIGHT_SWEATS" 			"n"	"SYMPTOM"					"Sueurs nocturnes"		null
+    "NAUSEA"				"n"	"SYMPTOM"					"Nausée"				null
+    "RHINITIS"				"n"	"SYMPTOM"					"Rhinite"				null
+    "BACK_PAIN"      		"n"	"SYMPTOM"					"Mal au dos"			null
+
+repo<EntryType> for Admin
+	findAll()
+	save()
+	delete()
+
+repo<EntryType> for User
+	findAllMine()
+	saveMine()
+	deleteMine()
+
+# -----
+# Entry
+# -----
 
 struct Entry
     #id: text(16)
@@ -143,13 +185,10 @@ repo<Entry> for User
 	saveMine()
 	saveAllMine()
 	deleteMine()
-	
-repo<CalendarUser> for System
-	save()
-	findByUserName()
 
-repo<UserRole> for System
-	findAllByUserId()
+# ---------------------
+# PhysicalActivityStats
+# ---------------------
 	
 struct PhysicalActivityStats
     #date: text(16)

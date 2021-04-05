@@ -4,8 +4,9 @@ import { useParams } from "react-router";
 import { VerticalBorderLayout } from "ezwn-ux-native/layouts/VerticalBorderLayout-cmp";
 import { TitleBar } from "ezwn-ux-native/app-components/TitleBar-cmp";
 
-import { useAdminTopicRepository } from "features/admin/topic/AdminTopicRepository-ctx";
 import { CrudItemDetails } from "ezwn-react-native-generic-crud-feature/CrudItemDetails-cmp";
+
+import { useAdminTopicRepository } from "./AdminTopicRepository-ctx";
 
 export const AdminTopicDetailRoot = () => {
   const { id } = useParams();

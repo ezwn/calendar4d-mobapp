@@ -6,7 +6,7 @@ import { FontAwesomeTextIcon } from "ezwn-ux-native/text-icons/FontAwsomeTextIco
 
 import { AdminTopicRoot } from "./AdminTopicRoot-cmp";
 import { AdminTopicDetailRoot } from "./AdminTopicDetailRoot-cmp";
-import { AdminTopicRepositoryProvider } from "features/admin/topic/AdminTopicRepository-ctx";
+import { AdminTopicRepositoryProvider } from "./AdminTopicRepository-ctx";
 
 export const id = "TopicCrudFeature";
 

@@ -6,19 +6,19 @@ import { TitleBar } from "ezwn-ux-native/app-components/TitleBar-cmp";
 
 import { CrudItemDetails } from "ezwn-react-native-generic-crud-feature/CrudItemDetails-cmp";
 
-import { useAdminEntryTypeRepository } from "./AdminEntryTypeRepository-ctx";
+import { useSettingsTopicRepository } from "./SettingsTopicRepository-ctx";
 
-export const AdminEntryTypeDetailRoot = () => {
+export const SettingsTopicDetailRoot = () => {
   const { id } = useParams();
-  const [titleText, setTitleText] = useState("Entry type...");
+  const [titleText, setTitleText] = useState("Topic...");
 
   return (
     <VerticalBorderLayout
       top={<TitleBar text={titleText} left={<TitleBar.BackButton />} />}
     >
       <CrudItemDetails
-        useRepository={useAdminEntryTypeRepository}
-        structId="EntryType"
+        useRepository={useSettingsTopicRepository}
+        structId="Topic"
         labelProp="name"
         id={id}
         onNameChanged={setTitleText}

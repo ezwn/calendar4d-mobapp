@@ -6,15 +6,16 @@ import { HorizontalLayout } from "ezwn-ux-native/layouts/HorizontalLayout-cmp";
 import { ListItem } from "ezwn-ux-native/list/ListItem-cmp";
 
 import { CrudList } from "ezwn-react-native-generic-crud-feature/CrudList-cmp";
-import { useAdminEntryTypeRepository } from "./AdminEntryTypeRepository-ctx";
 
-export const AdminEntryTypeRoot = () => {
+import { useSettingsEntryTypeRepository } from "./SettingsEntryTypeRepository-ctx";
+
+export const SettingsEntryTypeRoot = () => {
   return (
     <VerticalBorderLayout>
       <CrudList
-        routerLocation="/admin/entry-type"
+        routerLocation="/settings/entry-type"
         ItemContentComponent={EntryTypeListItem}
-        useRepository={useAdminEntryTypeRepository}
+        useRepository={useSettingsEntryTypeRepository}
       />
     </VerticalBorderLayout>
   );
